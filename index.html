@@ -1,1 +1,711 @@
-PLACEHOLDER_FOR_FULL_HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Casio Melody-80</title>
+<style>
+:root {
+  --metal: #c8c4bc;
+  --metal-dark: #a8a49c;
+  --bezel: #1a1a1a;
+  --lcd-bg: #4a5248;
+  --lcd-fg: #1a2a1a;
+  --orange: #e07a2f;
+  --btn-black: #2a2a2a;
+  --btn-beige: #e8e4dc;
+  --btn-white: #f5f2ee;
+  --text-dark: #222;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  height: 100%;
+  background: #111;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  touch-action: manipulation;
+}
+
+@media (orientation: portrait) {
+  body::before {
+    content: "Rotate to landscape for authentic Casio Melody-80 experience";
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #111;
+    color: #ddd;
+    font-size: 18px;
+    text-align: center;
+    padding: 20px;
+    z-index: 9999;
+  }
+  .device { display: none !important; }
+}
+
+.device {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at center, #2a2a2a 0%, #0a0a0a 100%);
+}
+
+.calculator {
+  width: min(100vw - 8px, 100vh * 2.05 - 8px);
+  height: min(100vh - 8px, (100vw - 8px) / 2.05);
+  background: linear-gradient(180deg, #d8d4cc 0%, #b8b4ac 40%, #c0bcb4 100%);
+  border: 3px solid #2a2a2a;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.3);
+  position: relative;
+  display: grid;
+  grid-template-columns: 42% 58%;
+  overflow: hidden;
+  user-select: none;
+}
+
+.left-panel {
+  background: linear-gradient(180deg, #d0ccc4 0%, #b0aca4 100%);
+  padding: 8px 6px 6px 10px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.lcd-frame {
+  background: #1a1a1a;
+  border-radius: 6px;
+  padding: 6px 8px 4px;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.8);
+  flex-shrink: 0;
+}
+
+.lcd-label {
+  color: #ccc;
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-align: center;
+  margin-bottom: 2px;
+  font-family: "Courier New", monospace;
+}
+
+.lcd {
+  background: linear-gradient(180deg, #5a6258 0%, #3a4238 100%);
+  border-radius: 3px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 8px;
+  position: relative;
+  box-shadow: inset 0 1px 4px rgba(0,0,0,0.5);
+}
+
+.lcd-digits {
+  font-family: "Courier New", monospace;
+  font-size: 28px;
+  font-weight: bold;
+  color: #1a2a1a;
+  letter-spacing: 2px;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.1);
+  min-width: 140px;
+  text-align: right;
+}
+
+.pm-indicator {
+  position: absolute;
+  left: 6px;
+  top: 6px;
+  font-size: 10px;
+  color: #1a2a1a;
+  font-weight: bold;
+  opacity: 0;
+}
+
+.pm-indicator.on { opacity: 1; }
+
+.days {
+  display: flex;
+  justify-content: space-between;
+  font-size: 8px;
+  color: #333;
+  margin: 4px 2px 0;
+  font-family: Arial, sans-serif;
+  letter-spacing: 0.5px;
+}
+
+.days span.active {
+  color: #1a4a8a;
+  font-weight: bold;
+}
+
+.staff {
+  margin-top: 8px;
+  height: 36px;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='36' viewBox='0 0 180 36'><line x1='0' y1='8' x2='180' y2='8' stroke='%23333' stroke-width='0.5'/><line x1='0' y1='14' x2='180' y2='14' stroke='%23333' stroke-width='0.5'/><line x1='0' y1='20' x2='180' y2='20' stroke='%23333' stroke-width='0.5'/><line x1='0' y1='26' x2='180' y2='26' stroke='%23333' stroke-width='0.5'/><line x1='0' y1='32' x2='180' y2='32' stroke='%23333' stroke-width='0.5'/><text x='4' y='22' font-size='16' fill='%23333'>🎼</text><circle cx='40' cy='18' r='2.5' fill='%23c45a2a'/><circle cx='55' cy='14' r='2.5' fill='%23c45a2a'/><circle cx='70' cy='22' r='2.5' fill='%23c45a2a'/><circle cx='90' cy='12' r='2.5' fill='%23c45a2a'/><circle cx='110' cy='16' r='2.5' fill='%23c45a2a'/></svg>") left center no-repeat;
+  background-size: contain;
+}
+
+.branding {
+  margin-top: auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-bottom: 4px;
+}
+
+.speaker {
+  width: 36px;
+  height: 18px;
+  background: radial-gradient(circle, #333 1px, transparent 1.5px);
+  background-size: 4px 4px;
+  opacity: 0.7;
+}
+
+.logo {
+  font-size: 11px;
+  font-weight: bold;
+  color: #222;
+  letter-spacing: 1px;
+}
+
+.logo span { color: #c45a2a; }
+
+.right-panel {
+  background: linear-gradient(180deg, #d0ccc4 0%, #b8b4ac 100%);
+  padding: 6px 8px 6px 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.top-functions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr) auto;
+  gap: 4px;
+  align-items: center;
+}
+
+.func-btn, .mode-switch {
+  background: linear-gradient(180deg, #f8f6f2 0%, #e0dcd4 100%);
+  border: 1px solid #888;
+  border-radius: 4px;
+  height: 22px;
+  font-size: 8px;
+  font-weight: bold;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  cursor: pointer;
+  text-align: center;
+  line-height: 1;
+}
+
+.mode-switch {
+  width: 36px;
+  height: 40px;
+  flex-direction: column;
+  font-size: 7px;
+  background: #1a1a1a;
+  color: #fff;
+  border-radius: 3px;
+  position: relative;
+}
+
+.mode-switch::after {
+  content: "♪";
+  font-size: 14px;
+  position: absolute;
+  right: -2px;
+  top: 2px;
+}
+
+.keypad {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: repeat(5, 1fr);
+  gap: 4px;
+  margin-top: 2px;
+}
+
+.key {
+  background: linear-gradient(180deg, #3a3a3a 0%, #1a1a1a 100%);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0 2px 0 #000, inset 0 1px 0 rgba(255,255,255,0.15);
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.key:active { transform: translateY(1px); box-shadow: 0 1px 0 #000; }
+
+.key.orange {
+  background: linear-gradient(180deg, #f09040 0%, #d06020 100%);
+  color: #fff;
+  font-size: 14px;
+}
+
+.key.op {
+  background: linear-gradient(180deg, #3a3a3a 0%, #1a1a1a 100%);
+  font-size: 15px;
+}
+
+.solfege {
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 7px;
+  color: #c45a2a;
+  font-weight: bold;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal.show { display: flex; }
+
+.modal-content {
+  background: #f5f2ee;
+  border-radius: 10px;
+  padding: 16px;
+  max-width: 90vw;
+  max-height: 80vh;
+  overflow-y: auto;
+  color: #222;
+  width: 480px;
+}
+
+.modal h3 { margin-bottom: 10px; font-size: 16px; }
+
+.history-item {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+  font-family: monospace;
+  font-size: 14px;
+}
+
+.history-item .expr { color: #555; }
+.history-item .res { font-weight: bold; color: #1a4a8a; }
+
+.modal-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  justify-content: flex-end;
+}
+
+.modal-buttons button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  background: #e07a2f;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.float-controls {
+  position: fixed;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  gap: 6px;
+  z-index: 100;
+}
+
+.float-btn {
+  background: rgba(30,30,30,0.85);
+  color: #fff;
+  border: 1px solid #555;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 11px;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+}
+</style>
+</head>
+<body>
+<div class="device">
+  <div class="calculator" id="calc">
+    <div class="left-panel">
+      <div class="lcd-frame">
+        <div class="lcd-label">ALARM — 1 — 2</div>
+        <div class="lcd">
+          <div class="pm-indicator" id="pm">PM</div>
+          <div class="lcd-digits" id="display">0</div>
+        </div>
+        <div class="days" id="days">
+          <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span class="active">Sat</span>
+        </div>
+      </div>
+      <div class="staff"></div>
+      <div class="branding">
+        <div class="speaker"></div>
+        <div class="logo">CASIO <span>MELODY-80</span></div>
+      </div>
+    </div>
+
+    <div class="right-panel">
+      <div class="top-functions">
+        <div class="func-btn" data-action="timer">TIMER</div>
+        <div class="func-btn" data-action="alarm1">ALARM-1</div>
+        <div class="func-btn" data-action="alarm2">ALARM-2</div>
+        <div class="func-btn" data-action="set">SET</div>
+        <div class="mode-switch" id="modeSwitch" data-mode="cal">CAL</div>
+      </div>
+      <div class="top-functions" style="grid-template-columns: repeat(4, 1fr);">
+        <div class="func-btn" data-action="startstop">START/STOP</div>
+        <div class="func-btn" data-action="lap">LAP</div>
+        <div class="func-btn" data-action="date">DATE</div>
+        <div class="func-btn" data-action="time">TIME</div>
+      </div>
+
+      <div class="keypad">
+        <div class="key" data-key="sqrt"><span class="solfege"></span>√</div>
+        <div class="key" data-key="7"><span class="solfege">Si</span>7</div>
+        <div class="key" data-key="8"><span class="solfege">Do</span>8</div>
+        <div class="key" data-key="9"><span class="solfege">Re</span>9</div>
+        <div class="key op" data-key="div">÷</div>
+
+        <div class="key" data-key="4"><span class="solfege">Fa</span>4</div>
+        <div class="key" data-key="5"><span class="solfege">Sol</span>5</div>
+        <div class="key" data-key="6"><span class="solfege">La</span>6</div>
+        <div class="key op" data-key="mul">×</div>
+        <div class="key op" data-key="percent">%</div>
+
+        <div class="key orange" data-key="c">C</div>
+        <div class="key" data-key="1"><span class="solfege">Do</span>1</div>
+        <div class="key" data-key="2"><span class="solfege">Re</span>2</div>
+        <div class="key" data-key="3"><span class="solfege">Mi</span>3</div>
+        <div class="key op" data-key="sub">−</div>
+
+        <div class="key orange" data-key="ac">AC</div>
+        <div class="key" data-key="0"><span class="solfege">Si</span>0</div>
+        <div class="key" data-key="."><span class="solfege">La</span>•</div>
+        <div class="key op" data-key="eq">=</div>
+        <div class="key op" data-key="add">+</div>
+
+        <div class="key op" data-key="mrc">MRC</div>
+        <div class="key op" data-key="mminus">M−</div>
+        <div class="key op" data-key="mplus">M+</div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="float-controls">
+  <button class="float-btn" id="historyBtn">See Calculations</button>
+  <button class="float-btn" id="shareBtn">Share</button>
+</div>
+
+<div class="modal" id="historyModal">
+  <div class="modal-content">
+    <h3>Calculation History</h3>
+    <div id="historyList"></div>
+    <div class="modal-buttons">
+      <button id="clearHistory">Clear All</button>
+      <button id="closeHistory">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+const noteMap = {
+  '0': 196.00,
+  '1': 261.63,
+  '2': 293.66,
+  '3': 329.63,
+  '4': 349.23,
+  '5': 392.00,
+  '6': 440.00,
+  '7': 196.00,
+  '8': 523.25,
+  '9': 587.33,
+  '.': 440.00
+};
+
+function playNote(freq, duration = 0.18, type = 'square') {
+  if (!freq) return;
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = type;
+  osc.frequency.value = freq;
+  gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+  const tremolo = audioCtx.createOscillator();
+  const tremoloGain = audioCtx.createGain();
+  tremolo.frequency.value = 4;
+  tremoloGain.gain.value = 0.3;
+  tremolo.connect(tremoloGain);
+  tremoloGain.connect(gain.gain);
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+  osc.start();
+  tremolo.start();
+  osc.stop(audioCtx.currentTime + duration);
+  tremolo.stop(audioCtx.currentTime + duration);
+}
+
+function playSequence(str) {
+  let i = 0;
+  const playNext = () => {
+    if (i >= str.length) return;
+    const ch = str[i];
+    if (noteMap[ch]) playNote(noteMap[ch], 0.16);
+    i++;
+    setTimeout(playNext, 220);
+  };
+  playNext();
+}
+
+function playMelody(name) {
+  const melodies = {
+    tarantella: [392, 440, 494, 523, 494, 440, 392, 349, 392, 440, 392],
+    furElise: [659, 622, 659, 622, 659, 494, 587, 523, 440],
+    ascending: [261, 294, 330, 349, 392, 440, 494, 523]
+  };
+  const notes = melodies[name] || melodies.ascending;
+  notes.forEach((f, i) => setTimeout(() => playNote(f, 0.25), i * 280));
+}
+
+let display = '0';
+let prev = null;
+let op = null;
+let waiting = false;
+let memory = 0;
+let history = JSON.parse(localStorage.getItem('melody80-history') || '[]');
+let mode = 'cal';
+
+const displayEl = document.getElementById('display');
+const pmEl = document.getElementById('pm');
+const historyList = document.getElementById('historyList');
+const historyModal = document.getElementById('historyModal');
+
+function updateDisplay() {
+  let val = display;
+  if (val.length > 8) val = val.slice(0, 8);
+  displayEl.textContent = val;
+  pmEl.classList.toggle('on', false);
+}
+
+function pushHistory(expr, res) {
+  history.unshift({ expr, res, ts: Date.now() });
+  if (history.length > 50) history.pop();
+  localStorage.setItem('melody80-history', JSON.stringify(history));
+}
+
+function calculate() {
+  if (prev === null || op === null) return;
+  const a = parseFloat(prev);
+  const b = parseFloat(display);
+  let res;
+  switch (op) {
+    case '+': res = a + b; break;
+    case '-': res = a - b; break;
+    case '*': res = a * b; break;
+    case '/': res = b !== 0 ? a / b : 'Error'; break;
+    default: res = b;
+  }
+  const expr = `${prev} ${op} ${display}`;
+  display = String(res).replace(/\.?0+$/, '').slice(0, 8);
+  pushHistory(expr, display);
+  if (mode === 'melody') playSequence(display.replace(/[^0-9.]/g, ''));
+  prev = null;
+  op = null;
+  waiting = true;
+  updateDisplay();
+}
+
+function inputDigit(d) {
+  if (waiting) {
+    display = d;
+    waiting = false;
+  } else {
+    display = display === '0' ? d : display + d;
+  }
+  if (display.length > 8) display = display.slice(0, 8);
+  if (mode === 'melody' && noteMap[d]) playNote(noteMap[d]);
+  updateDisplay();
+}
+
+function inputDot() {
+  if (waiting) { display = '0.'; waiting = false; }
+  else if (!display.includes('.')) display += '.';
+  updateDisplay();
+}
+
+function setOp(newOp) {
+  if (op && !waiting) calculate();
+  prev = display;
+  op = newOp;
+  waiting = true;
+}
+
+function clearEntry() {
+  display = '0';
+  updateDisplay();
+}
+
+function allClear() {
+  display = '0';
+  prev = null;
+  op = null;
+  waiting = false;
+  updateDisplay();
+}
+
+function sqrt() {
+  const n = parseFloat(display);
+  if (n >= 0) {
+    display = String(Math.sqrt(n)).slice(0, 8);
+    pushHistory(`√${n}`, display);
+    updateDisplay();
+  }
+}
+
+function percent() {
+  const n = parseFloat(display);
+  display = String(n / 100).slice(0, 8);
+  updateDisplay();
+}
+
+function mem(action) {
+  const n = parseFloat(display) || 0;
+  if (action === 'm+') memory += n;
+  else if (action === 'm-') memory -= n;
+  else if (action === 'mrc') {
+    display = String(memory).slice(0, 8);
+    updateDisplay();
+  }
+}
+
+document.querySelectorAll('.key').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const k = btn.dataset.key;
+    if (!k) return;
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+
+    if (/^[0-9]$/.test(k)) inputDigit(k);
+    else if (k === '.') inputDot();
+    else if (k === 'add') setOp('+');
+    else if (k === 'sub') setOp('-');
+    else if (k === 'mul') setOp('*');
+    else if (k === 'div') setOp('/');
+    else if (k === 'eq') calculate();
+    else if (k === 'c') clearEntry();
+    else if (k === 'ac') allClear();
+    else if (k === 'sqrt') sqrt();
+    else if (k === 'percent') percent();
+    else if (k === 'mplus') mem('m+');
+    else if (k === 'mminus') mem('m-');
+    else if (k === 'mrc') mem('mrc');
+  });
+});
+
+document.querySelectorAll('.func-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const a = btn.dataset.action;
+    if (a === 'time') {
+      const now = new Date();
+      display = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }).replace(/:/g, '');
+      updateDisplay();
+    } else if (a === 'date') {
+      const now = new Date();
+      display = `${now.getMonth()+1}${String(now.getDate()).padStart(2,'0')}`;
+      updateDisplay();
+    } else if (a === 'alarm1') playMelody('tarantella');
+    else if (a === 'alarm2') playMelody('furElise');
+    else if (a === 'timer') playMelody('ascending');
+  });
+});
+
+document.getElementById('modeSwitch').addEventListener('click', () => {
+  mode = mode === 'cal' ? 'melody' : 'cal';
+  document.getElementById('modeSwitch').textContent = mode === 'cal' ? 'CAL' : 'MEL';
+});
+
+function renderHistory() {
+  historyList.innerHTML = history.length
+    ? history.map(h => `<div class="history-item"><div class="expr">${h.expr}</div><div class="res">= ${h.res}</div></div>`).join('')
+    : '<div class="history-item">No calculations yet</div>';
+}
+
+document.getElementById('historyBtn').addEventListener('click', () => {
+  renderHistory();
+  historyModal.classList.add('show');
+});
+
+document.getElementById('closeHistory').addEventListener('click', () => historyModal.classList.remove('show'));
+document.getElementById('clearHistory').addEventListener('click', () => {
+  history = [];
+  localStorage.setItem('melody80-history', '[]');
+  renderHistory();
+});
+
+document.getElementById('shareBtn').addEventListener('click', async () => {
+  const state = { display, history: history.slice(0, 10) };
+  const encoded = btoa(JSON.stringify(state));
+  const url = `${location.origin}${location.pathname}?s=${encoded}`;
+  if (navigator.share) {
+    try { await navigator.share({ title: 'Casio Melody-80', text: `Result: ${display}`, url }); }
+    catch (e) { await navigator.clipboard.writeText(url); alert('Link copied'); }
+  } else {
+    await navigator.clipboard.writeText(url);
+    alert('Share link copied to clipboard');
+  }
+});
+
+(() => {
+  const params = new URLSearchParams(location.search);
+  const s = params.get('s');
+  if (s) {
+    try {
+      const state = JSON.parse(atob(s));
+      if (state.display) display = state.display;
+      if (state.history) history = state.history;
+      updateDisplay();
+      localStorage.setItem('melody80-history', JSON.stringify(history));
+    } catch (e) {}
+  }
+  updateDisplay();
+})();
+
+function updateDay() {
+  const days = document.querySelectorAll('#days span');
+  const today = new Date().getDay();
+  days.forEach((el, i) => el.classList.toggle('active', i === today));
+}
+updateDay();
+</script>
+</body>
+</html>
